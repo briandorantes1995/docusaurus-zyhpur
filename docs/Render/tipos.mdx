@@ -1,0 +1,89 @@
+---
+sidebar_label: 'Tipos'
+sidebar_position: 2
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Parametros requeridos
+Por defecto requiere al menos uno de los siguientes parametros para funcionar,
+hablaremos mas a detalle sobre cada parametro en las siguientes secciones
+
+# Headers requeridos en todas las peticiones:
+
+:::info
+**Authorization: Bearer TU_API_KEY**  
+**Content-Type: application/json**
+:::
+
+:::tip
+La Apikey es generada en la seccion de apikeys del dashboard , una vez registrado puedes comenzar a usarla
+Si aun no te has registrado, registrate para recibir 50 creditos gratis 
+:::
+
+## html_template
+
+HTML con sintaxis Handlebars. Las `{{ }}` serán reemplazadas con los valores de variables.
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    variables: { nombre: "Zed" } // Variables a mostrar dentro del template
+  })
+});
+
+const data = await response.json();`}
+/>
+
+## url
+
+La URL pública de la página web a convertir.
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+  })
+});
+
+const data = await response.json();`}
+/>
+
+## html
+
+Tu código HTML como string (máx. 10MB). CSS inline o bloques `<style>`.
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html: '<h1>Hola mundo</h1>',
+  })
+});
+
+const data = await response.json();`}
+/>
