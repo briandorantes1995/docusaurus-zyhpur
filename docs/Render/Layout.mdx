@@ -1,0 +1,118 @@
+---
+sidebar_label: 'Layout'
+sidebar_position: 3
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Parametros Layout
+Los siguientes parametros sirven para definir el Layout del pdf (tamano, orientacion)
+
+
+## format -- string
+
+```
+Tamaño del PDF: A0-A5, Letter, Legal, Tabloid, Ledger. Default: A4
+```
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter' //en caso de no especificar el default es A4
+  })
+});
+const data = await response.json();`}
+/>
+
+
+## width  height -- string
+
+:::warning
+**No usar junto con format**  
+:::
+
+```
+width Ancho personalizado (ej: '210'mm)
+```
+```
+height Alto personalizado (ej: '297'mm)
+```
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    width:'210', //no usar junto con format
+    height: '310' //no usar junto con format
+  })
+});
+const data = await response.json();`}
+/>
+
+
+## landscape -- boolean
+```
+Orientación horizontal. Default: false
+```
+
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    landscape: true //en caso de no especificar el default es false(horizontal)
+  })
+});
+const data = await response.json();`}
+/>
+
+## scale -- number
+```
+Escala del renderizado (0.1 – 3.0). Default: 1.0
+```
+
+
+<MonacoSnippetViewer
+  fileName="api.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    scale: 2.0 // en caso de no especificar el default es 1.0 , aumentar o reducir para ajustar el pdf
+  })
+});
+const data = await response.json();`}
+/>
+
+## margin -- object
