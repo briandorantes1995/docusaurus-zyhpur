@@ -71,7 +71,7 @@ const config: Config = {
       title: 'Zyphur',
       logo: {
         alt: 'Zed',
-        src: 'img/zed-pensando.png',
+        src: 'img/zed.png',
       },
       items: [
         {
@@ -87,7 +87,7 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentacion',
           items: [
             {
               label: 'Tutorial',
@@ -96,7 +96,7 @@ const config: Config = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Redes Sociales',
           items: [
             {
               label: 'Instagram',
@@ -109,7 +109,7 @@ const config: Config = {
           ],
         },
         {
-          title: 'More',
+          title: 'Mas',
           items: [
             {
               label: 'Blog',
