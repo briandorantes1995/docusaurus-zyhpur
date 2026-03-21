@@ -132,6 +132,7 @@ const config: Config = {
       searchParameters: {},
       searchPagePath: 'search',
       askAi: 'QJ5IrNK9qAub',
+
     },
     prism: {
       theme: prismThemes.github,
