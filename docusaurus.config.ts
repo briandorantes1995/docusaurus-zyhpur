@@ -128,7 +128,7 @@ const config: Config = {
       appId: 'ETFJG6A4HO',
       apiKey: '2d742d52e56dd101e35c23697901cfbe',
       indexName: 'zyphur_docs',
-      contextualSearch: true,
+      contextualSearch: false,
       searchParameters: {},
       searchPagePath: 'search',
       askAi: 'QJ5IrNK9qAub',

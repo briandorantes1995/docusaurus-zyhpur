@@ -1,27 +1,26 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 
-import styles from './index.module.css';
-
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className="zyphur-hero">
       <div className="container">
-        <Heading as="h1" className="hero__title">
+        <Heading as="h1" className="zyphur-hero-title">
           {siteConfig.title}
         </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
+        <p className="zyphur-hero-subtitle">
+          API de documentos para desarrolladores
+        </p>
+        <div>
           <Link
-            className="button button--secondary button--lg"
+            className="zyphur-hero-button"
             to="/docs/intro">
-            Tutorial Rapido - 5min ⏱️
+            Tutorial Rápido - 5min ⏱️
           </Link>
         </div>
       </div>
@@ -33,8 +32,8 @@ export default function Home(): ReactNode {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`Bienvenido a ${siteConfig.title}`}
+      description="Documentación oficial de la API Zyphur para generación, edición y extracción de información de PDFs.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
