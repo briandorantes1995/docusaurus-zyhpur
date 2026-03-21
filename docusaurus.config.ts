@@ -15,10 +15,10 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://briandorantes1995.github.io',
+  url: 'https://docs.zyphur.me',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/docusaurus-zyhpur/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -123,6 +123,14 @@ const config: Config = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Zyhpur, Inc. Built with Docusaurus.`,
+    },
+    algolia: {
+      appId: 'ETFJG6A4HO',
+      apiKey: '2d742d52e56dd101e35c23697901cfbe',
+      indexName: 'zyphur_docs',
+      contextualSearch: true,
+      searchParameters: {},
+      searchPagePath: 'search',
     },
     prism: {
       theme: prismThemes.github,

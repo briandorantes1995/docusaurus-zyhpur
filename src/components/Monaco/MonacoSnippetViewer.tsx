@@ -97,16 +97,46 @@ function MonacoSnippetViewerImpl({
   };
 
   return (
-    <div className="w-full rounded-2xl overflow-hidden border border-gray-800 shadow-lg" style={{ marginBottom: "1rem" }}>
+    <div style={{ 
+      width: "100%", 
+      borderRadius: "1rem", 
+      overflow: "hidden", 
+      border: "1px solid #1f2937", 
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      marginBottom: "1rem"
+    }}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-800">
-        <div className="text-sm text-gray-300 font-mono">
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0.5rem 1rem",
+        backgroundColor: "#111827",
+        borderBottom: "1px solid #1f2937"
+      }}>
+        <div style={{
+          fontSize: "0.875rem",
+          color: "#d1d5db",
+          fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
+        }}>
           {fileName}
         </div>
 
         <button
           onClick={handleCopy}
-          className="flex items-center gap-2 text-xs text-gray-300 hover:text-white transition"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontSize: "0.75rem",
+            color: "#d1d5db",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            transition: "color 0.2s"
+          }}
+          onMouseOver={(e) => e.currentTarget.style.color = "#ffffff"}
+          onMouseOut={(e) => e.currentTarget.style.color = "#d1d5db"}
         >
           {copied ? (
             <>
@@ -123,7 +153,7 @@ function MonacoSnippetViewerImpl({
       {/* Editor */}
       <div
         ref={editorRef}
-        style={{ height }}
+        style={{ height, width: "100%" }}
       />
     </div>
   );
