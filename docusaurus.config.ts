@@ -127,7 +127,7 @@ const config: Config = {
     algolia: {
       appId: 'ETFJG6A4HO',
       apiKey: '2d742d52e56dd101e35c23697901cfbe',
-      indexName: 'zyphur_docs',
+      indexName: 'zyphur docs',
       contextualSearch: false,
       searchParameters: {},
       searchPagePath: 'search',
