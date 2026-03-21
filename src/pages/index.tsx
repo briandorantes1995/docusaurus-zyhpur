@@ -10,6 +10,12 @@ function HomepageHeader() {
   return (
     <header className="zyphur-hero">
       <div className="container">
+        <img
+          src="/img/zed.png"
+          alt="Zyhpur Logo"
+          className="zyphur-hero-image"
+          style={{ maxWidth: 220, marginBottom: '1rem' }}
+        />
         <Heading as="h1" className="zyphur-hero-title">
           {siteConfig.title}
         </Heading>
