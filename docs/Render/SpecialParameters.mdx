@@ -1,0 +1,266 @@
+---
+sidebar_label: 'Parametros Especiales'
+sidebar_position: 3
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+
+# Parametros Especiales
+Algunos parametros dependen del tipo de plan y otros afectan el desempeno o tiempo de renderizado del pdf
+Puedes jugar en conjunto con estos parametros para optimizar el resultado segun tus necesidades,
+por ejemplo: si tu pagina es una SPA puedes usar delay o wait_for_network para asegurarte de que se renderice correctamente, o si tu pdf es muy pesado puedes usar timeout para evitar que la tarea se quede colgada.
+
+## timeout -- number
+
+```   
+Tiempo máximo (en segundos) que la API esperará a que una tarea se complete antes de cancelarla.
+```  
+```  
+Si la operación excede este tiempo, la solicitud será terminada automáticamente ,
+se devolverá lo que se haya generado hasta ese momento (soft timeout).
+```  
+```  
+Por lo regular no es necesario especificarlo, 
+pero puede ser util para tareas complejas o con mucho contenido.  
+```     
+
+:::info
+**Según el plan: Free 30s, Basic 60s, Plus 120s**  
+:::
+
+<MonacoSnippetViewer
+  fileName="timeout.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    timeout: 5 // Tiempo máximo en segundos para esperar a que se complete la tarea
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+
+## delay -- number
+
+```  
+Demora adicional en ms después de cargar la página (0 - 10000).  
+```     
+
+:::info
+Util para SPA o páginas con animaciones.  
+:::
+
+<MonacoSnippetViewer
+  fileName="delay.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    delay: 5 // Tiempo máximo en ms para esperar después de cargar la página antes de renderizar el PDF
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+## wait_for_network -- boolean
+
+```  
+Esperar a que se complete la carga de todos los recursos de la página (imágenes, scripts, etc.)
+ antes de renderizar el PDF.Default: true
+```  
+
+<MonacoSnippetViewer
+  fileName="wait_for_network.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    wait_for_network: false // Esperar a que se complete la carga de todos los recursos de la página antes de renderizar el PDF (Default: true)
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+
+## enableScroll -- boolean
+
+```  
+Habilita scroll automático para cargar contenido lazy-loaded. Default: falses
+Si se activa, en caso de no especificar tiempo maximo se hara scroll por el 70 % del tiempo maximo del Plan
+Si ya no detecta cambios en la pagina se detendra el scroll aunque no se haya alcanzado el tiempo maximo, 
+Esto para optimizar el tiempo de renderizado y evitar scroll innecesarios.
+Debe estar activo para usar los siguientes parametros (dependen del scroll para funcionar)
+```  
+
+:::info
+El 70% del timeout del plan, por ejemplo: 21s para free, 42s para basic y 84s para plus
+:::
+
+:::warning
+Si se utiliza con una url,puede causar efectos secundarios como cambios en el diseño o contenido del pdf generado,
+ esto se debe a que al hacer scroll se pueden activar scripts o cargar recursos adicionales que afectan el resultado final.
+:::
+
+<MonacoSnippetViewer
+  fileName="enableScroll.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    enableScroll: true // Habilita scroll automático para cargar contenido lazy-loaded (Default: false, usara el 70% del timeout del plan)
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+## maxScrollTime -- number
+
+``` 
+Tiempo máximo de scroll en segundos (1 - 70% del timeout).
+```
+
+:::info
+Requiere que enableScroll esté activo.
+:::
+
+<MonacoSnippetViewer
+  fileName="maxScrollTime.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    enableScroll: true,
+    maxScrollTime: 10 // Tiempo máximo de scroll en segundos (1 – 70% del timeout), requiere que enableScroll esté activo
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+## scrollDelay -- number
+
+``` 
+Pausa entre cada scroll en ms (10-5000ms). Default: 100.
+``` 
+
+:::info
+Requiere que enableScroll esté activo.
+:::
+
+<MonacoSnippetViewer
+  fileName="scrollDelay.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    enableScroll: true,
+    maxScrollTime: 10 // Tiempo máximo de scroll en segundos
+    scrollDelay: 500 // Pausa entre cada scroll en ms (10-5000ms). Default: 100. Requiere enableScroll
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>
+
+## scrollStep -- number
+
+``` 
+Píxeles a avanzar por scroll (50 - 5000) Default: 200.
+``` 
+
+:::info
+Requiere que enableScroll esté activo.
+:::
+
+
+<MonacoSnippetViewer
+  fileName="scrollStep.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    html_template: '<h1>Hola {{nombre}}</h1>',
+    enableScroll: true,
+    maxScrollTime: 10 // Tiempo máximo de scroll en segundos
+    scrollDelay: 500 // Pausa entre cada scroll en ms (10-5000ms). Default: 100. Requiere enableScroll
+    scrollStep: 200 // Píxeles a avanzar por scroll (50-5000) Default: 200. Requiere enableScroll
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+
+window.open(url);`}
+/>

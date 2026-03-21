@@ -1,0 +1,98 @@
+---
+sidebar_label: 'Unir PDF'
+sidebar_position: 1
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Herramientas
+
+# Headers requeridos en todas las peticiones:
+
+:::info
+**Authorization: Bearer TU_API_KEY**  
+**Content-Type: multipart/form-data**
+:::
+
+
+## Unir Pdfs
+```
+Unir 2 Pdfs de Manera Simple y rapida
+```
+
+# Parametros
+```
+file -- File[]
+```
+```
+store -- boolean (opcional)
+```
+
+
+<MonacoSnippetViewer
+  fileName="merge-pdf.js"
+  language="javascript"
+  highlightLines={[6,7,8]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+formData.append('file', fs.createReadStream('contrato.pdf'));
+formData.append('file', fs.createReadStream('anexo.pdf'));
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/merge', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+    'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+const buffer = await response.arrayBuffer();
+`}
+/>
+
+```
+Se uso store true para devolver un url temporal del pdf generado, disponible por 24 horas
+```
+
+<MonacoSnippetViewer
+  fileName="merge-pdf.js"
+  language="javascript"
+  highlightLines={[6,7,8]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+formData.append('file', fs.createReadStream('contrato.pdf'));
+formData.append('file', fs.createReadStream('anexo.pdf'));
+
+formData.append('store', true); // devuelve un url temporal del pdf generado, disponible por 24 horas
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/merge', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+    'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+const data = await response.json();
+console.log('PDF unido:', data.url);
+`}
+/>
+
+
+***Salida esperada***
+
+```
+{
+  "success": true,
+  "url": "https://cdn.zyphur.me/pdf/user_39qcnj8CXrqlxnuD6VrEs2xxOLS/merge-1774049932323.pdf",
+  "pdfSize": 152780,
+  "creditsUsed": 1
+}
+
+```

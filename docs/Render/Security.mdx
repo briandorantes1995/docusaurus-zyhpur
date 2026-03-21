@@ -1,0 +1,164 @@
+---
+sidebar_label: 'Seguridad'
+sidebar_position: 5
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Parametros para Seguridad
+
+
+## store -- boolean
+```
+Almacenar el PDF y devolver URL de descarga (24h). Default: false (devuelve binario)
+```
+:::info
+Tu pdf sera almacenado por 24h (podras descargar cuantas veces sea necesario), 
+por defecto store no esta habilitado, dado que no mantenemos informacion de ningun pdf generado.
+:::
+
+:::tip
+Ademas la respuesta devolvera metricas(tiempo,creditos usados)
+:::
+
+<MonacoSnippetViewer
+  fileName="security.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    store:true //en caso de no especificar el default es false
+  })
+});
+const data = await response.json(); //respuesta con url de descarga y metricas , se usa asi porque no devuelve el pdf directamente, si no que lo almacena y devuelve la url de descarga (valida por 24h)`}
+/>
+
+response esperada
+```
+{
+  "success": true,
+  "status": "completed",
+  "url": "https://cdn.zyphur.me/pdf/user_39qcnj8CXrqlxnuD6VrEs2xxOLS/45-1774032353485.pdf",
+  "pdfSize": 21469,
+  "metrics": {
+    "startTime": 1774032351766,
+    "pageCreateDuration": 25,
+    "navigateDuration": 1555,
+    "pdfGenerateDuration": 37,
+    "totalDuration": 2153
+  },
+  "creditsUsed": 1
+}
+```
+
+## password --	string 
+
+```
+Contraseña requerida para abrir el PDF. Default: sin contraseña.
+```
+
+:::tip
+Para maxima privacidad, usar en conjunto (password,no_copy,no_print)
+:::
+
+:::warning
+Deberas ingresar la contraseña cada que abras el pdf (util para informacion sensible)
+:::
+
+<MonacoSnippetViewer
+  fileName="security.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    password : '12345' //se pediria cada que se abra el pdf, resguardar
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+
+## no_copy --	boolean
+
+
+```
+Restringe copiar texto e imágenes del PDF. Default: false.
+```
+
+:::tip
+Para maxima privacidad, usar en conjunto (password,no_copy,no_print)
+:::
+
+<MonacoSnippetViewer
+  fileName="security.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    no_copy : true //en caso de no especificar el default es false
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+## no_print --	boolean
+
+```
+Restringe imprimir el PDF. Default: false.
+```
+
+:::tip
+Para maxima privacidad, usar en conjunto (password,no_copy,no_print)
+:::
+
+<MonacoSnippetViewer
+  fileName="security.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    no_print : true //en caso de no especificar el default es false
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>

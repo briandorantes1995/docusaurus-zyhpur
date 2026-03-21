@@ -1,0 +1,62 @@
+---
+sidebar_label: 'Firmas'
+sidebar_position: 7
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Parametros de las firmas
+
+Las firmas son elementos que se pueden agregar a un pdf generado (ya sea html, url o template)
+
+## signature_image	-- string
+
+```
+Firma como base64 (data:image/png;base64,... o data:image/jpeg;base64,...).
+si no se especifica posicion siempre tomara como Default:top-left
+```
+## signature_position	-- string
+
+```	
+Posición de la firma: top-left, top-right, bottom-left, bottom-right, top-center,bottom-center. Default: top-left.
+```
+
+## signature_x	-- number	
+
+```
+Desplazamiento horizontal en puntos PDF desde la posición base(Default:top-left).
+```
+## signature_y	-- number	
+
+```
+Desplazamiento vertical en puntos PDF desde la posición base(Default:top-left).
+
+```
+
+<MonacoSnippetViewer
+fileName="firma.js"
+language="javascript"
+highlightLines={[1,8]}
+code={`import fs from 'fs';
+
+const imageBase64 = fs.readFileSync('firma.jpg', { encoding: 'base64' });
+
+const response = await fetch('https://api.zyphur.me/render/pdf', {
+method: 'POST',
+headers: {
+'Authorization': 'Bearer TU_API_KEY',
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+url: 'https://zyphur.me',
+signature_image: 'data:image/jpeg;base64,' + imageBase64,
+signature_position:'top-center' // Default top-left
+
+})
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>

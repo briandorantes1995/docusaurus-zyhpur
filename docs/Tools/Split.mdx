@@ -1,0 +1,116 @@
+---
+sidebar_label: 'Separar PDF'
+sidebar_position: 2
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Herramientas
+
+# Headers requeridos en todas las peticiones:
+
+:::info
+**Authorization: Bearer TU_API_KEY**  
+**Content-Type: multipart/form-data**
+:::
+
+:::warning
+Si el documento no tiene las paginas arroja un error asi
+El documento solo tiene 4 páginas. Solicitaste la página 7.
+:::
+
+
+## Separar Pdfs
+```
+Extrae páginas específicas de un PDF usando rangos flexibles.
+```
+
+# Parametros
+```
+file -- File[]
+```
+```
+pages -- string Páginas a extraer (índice desde 1). Ejemplos: '1,3,5' · '2-6' · '1,3,5-7,10'.
+```
+```
+store -- boolean (opcional)
+```
+
+<MonacoSnippetViewer
+  fileName="split-pdf.js"
+  language="javascript"
+  highlightLines={[6,8,12]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+// Solo un archivo para extraer páginas
+formData.append('file', fs.createReadStream('documento.pdf'));
+
+// Páginas a extraer (ejemplo)
+formData.append('pages', '1,3,5-7');
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/extract', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+   'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+// Respuesta por defecto: PDF binario
+const buffer = await response.arrayBuffer();
+`}
+/>
+
+
+```
+
+Se uso store true para devolver un url temporal del pdf generado, disponible por 24 horas
+
+```
+
+<MonacoSnippetViewer
+  fileName="merge-pdf.js"
+  language="javascript"
+  highlightLines={[6,7,8]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+// Solo un archivo para extraer páginas
+formData.append('file', fs.createReadStream('documento.pdf'));
+
+// Páginas a extraer (ejemplo)
+formData.append('pages', '1,3,5-7');
+
+formData.append('store', true); // devuelve un url temporal del pdf generado, disponible por 24 horas
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/extract', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+   'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+
+const data = await response.json();
+console.log('PDF unido:', data.url);
+`}
+/>
+
+
+***Salida esperada***
+
+```
+{
+  "success": true,
+  "url": "https://cdn.zyphur.me/pdf/user_39qcnj8CXrqlxnuD6VrEs2xxOLS/extract-1774050251508.pdf",
+  "pdfSize": 41900,
+  "creditsUsed": 1
+}
+
+```

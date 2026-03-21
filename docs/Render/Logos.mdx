@@ -1,0 +1,63 @@
+---
+sidebar_label: 'Logos'
+sidebar_position: 6
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+
+# Parametros de los logos
+
+Los logos son elementos que se pueden agregar a un pdf generado (ya sea html, url o template)
+
+## logo_image -- string
+
+```
+logo como base64 (data:image/png;base64,... o data:image/jpeg;base64,...).
+si no se especifica posicion siempre tomara como Default:top-left
+```
+## logo_position -- string
+
+```	
+Posición del logo: top-left, top-right, bottom-left, bottom-right, top-center,bottom-center. Default: top-left.
+```
+
+## logo_x -- number	
+
+```
+Desplazamiento horizontal en puntos PDF desde la posición base(Default:top-left).
+```
+## logo_y -- number	
+
+```
+Desplazamiento vertical en puntos PDF desde la posición base(Default:top-left).
+
+```
+
+<MonacoSnippetViewer
+fileName="logo.js"
+language="javascript"
+highlightLines={[1,8]}
+code={`import fs from 'fs';
+
+const imageBase64 = fs.readFileSync('firma.jpg', { encoding: 'base64' });
+
+const response = await fetch('https://api.zyphur.me/render/pdf', {
+method: 'POST',
+headers: {
+'Authorization': 'Bearer TU_API_KEY',
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({
+url: 'https://zyphur.me',
+logo_image: 'data:image/jpeg;base64,' + imageBase64,
+logo_position:'top-center' // Default top-left
+
+})
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>

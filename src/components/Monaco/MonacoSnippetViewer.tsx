@@ -30,6 +30,7 @@ export default function MonacoSnippetViewer({
       wordWrap: "on",
       automaticLayout: true,
       padding: { top: 12, bottom: 12 },
+      occurrencesHighlight: "off",
     });
 
     return () => {

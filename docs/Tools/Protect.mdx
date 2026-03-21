@@ -1,0 +1,114 @@
+---
+sidebar_label: 'Proteger/Desproteger PDF'
+sidebar_position: 3
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Herramientas
+
+# Headers requeridos en todas las peticiones:
+
+:::info
+**Authorization: Bearer TU_API_KEY**  
+**Content-Type: multipart/form-data**
+:::
+
+
+## Proteger Pdfs
+```
+Proteger un PDF con una contraseña
+```
+
+# Parametros
+```
+file -- File[]
+```
+
+```
+password -- string Contraseña para proteger el PDF
+```
+```
+no_copy -- boolean (opcional) Deshabilita la función de copiar texto del PDF protegido
+```
+
+```
+no_print -- boolean (opcional) Deshabilita la función de imprimir del PDF protegido
+```
+
+```
+store -- boolean (opcional)
+```
+
+
+<MonacoSnippetViewer
+  fileName="protect-pdf.js"
+  language="javascript"
+  highlightLines={[6,7,8]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+formData.append('file', fs.createReadStream('contrato.pdf'));
+formData.append('password', 'tu_contrasena');
+formData.append('no_copy', true);
+formData.append('no_print', true);
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/protect', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+    'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+const buffer = await response.arrayBuffer();
+`}
+/>
+
+
+## Desproteger Pdfs
+```
+Desproteger un PDF con una contraseña
+```
+
+# Parametros
+
+```
+file -- File[]
+```
+
+```
+password -- string Contraseña para proteger el PDF
+```
+
+```
+store -- boolean (opcional)
+
+```
+
+<MonacoSnippetViewer
+  fileName="protect-pdf.js"
+  language="javascript"
+  highlightLines={[6,7,8]}
+  code={`import fs from 'fs';
+
+const formData = new FormData();
+
+formData.append('file', fs.createReadStream('contrato.pdf'));
+formData.append('password', 'tu_contrasena');
+
+
+const response = await fetch('https://api.zyphur.me/api/tools/pdf/unprotect', {
+  method: 'POST',
+  headers: {
+    Authorization: 'Bearer TU_API_KEY',
+    'Content-Type': 'multipart/form-data',
+  },
+  body: formData
+});
+
+const buffer = await response.arrayBuffer();
+`}
+/>

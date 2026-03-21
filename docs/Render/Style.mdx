@@ -1,0 +1,207 @@
+---
+sidebar_label: 'Estilos'
+sidebar_position: 4
+---
+
+import MonacoSnippetViewer from '@site/src/components/Monaco/MonacoSnippetViewer';
+
+# Parametros de Estilos
+
+Estos parametros afecta el estilo visual del pdf generado
+
+## printBackground	-- boolean
+
+```
+Incluir colores/imágenes de fondo CSS. Default: true
+```
+
+:::warning
+**De usarse no cargara el fondo de la url o pagina**  
+:::
+
+<MonacoSnippetViewer
+  fileName="printBackground.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    printBackground:false // Default: true
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+## displayHeaderFooter -- boolean
+
+```
+Mostrar header/footer en cada página. Default: false
+```
+
+:::info
+Agregar por defecto pagina , fecha y hora
+**Necesario que este activo para agregar un footer y header propio**  
+:::
+
+<MonacoSnippetViewer
+  fileName="displayHeaderFooter.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    displayHeaderFooter:true // Default: false
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+## headerTemplate -- string
+
+```
+HTML del header. Soporta clases: date, title, url, pageNumber, totalPages.
+```
+
+:::info
+**Necesario que este displayHeaderFooter:true**  
+:::
+
+<MonacoSnippetViewer
+  fileName="displayHeaderFooter.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    displayHeaderFooter:true // Debe ser true, para mostrar el header,
+    headerTemplate: "<div style='width:100%; font-size:12px; text-align:center; border-bottom:1px solid #ccc; padding-bottom:5px;'><strong class='title'></strong><br/><span class='date'></span></div>"
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+## footerTemplate -- string
+
+```
+HTML del footer. Mismas clases que headerTemplate.
+```
+
+:::info
+**Necesario que este displayHeaderFooter:true**  
+:::
+
+<MonacoSnippetViewer
+  fileName="displayHeaderFooter.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    displayHeaderFooter:true // Debe ser true, para mostrar un footer,
+    footerTemplate: "<div style='width:100%; font-size:10px; text-align:center; border-top:1px solid #ccc; padding-top:5px;'>Página <span class='pageNumber'></span> de <span class='totalPages'></span></div>"
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+
+
+## pageRanges -- string
+
+```
+Rango de páginas a incluir, ej: '1-3', '1,3,5'. Default: todas.
+```
+
+<MonacoSnippetViewer
+  fileName="pageRanges.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    pageRanges:'1' // Default: todas
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+## preferCSSPageSize -- boolean
+
+```
+Usar el tamaño de página definido en CSS (@page). Default: false
+```
+
+<MonacoSnippetViewer
+  fileName="preferCSSPageSize.js"
+  language="javascript"
+  highlightLines={[2,9]}
+  code={`const response = await fetch('https://api.zyphur.me/render/pdf', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer TU_API_KEY', 
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    url: 'https://example.com/reporte',
+    format: 'Letter',
+    preferCSSPageSize:true // Default: false
+  })
+});
+
+const blob = await response.blob();
+
+const url = URL.createObjectURL(blob);
+window.open(url);`}
+/>
+
+
