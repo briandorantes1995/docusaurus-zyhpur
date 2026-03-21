@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Documentacion Zyphur',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Zed',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -71,7 +71,7 @@ const config: Config = {
       title: 'Zyphur',
       logo: {
         alt: 'Zed',
-        src: 'img/logo.svg',
+        src: 'img/zed-pensando.png',
       },
       items: [
         {
@@ -99,17 +99,13 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Instagram',
+              href: 'https://www.instagram.com/zedcompanymx/',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
-            },
+              label: 'Facebook',
+              href: 'https://www.facebook.com/ZEDCompanyMX',
+            }
           ],
         },
         {
