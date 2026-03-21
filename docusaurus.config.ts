@@ -129,6 +129,26 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
+
+  plugins: [
+    function monacoPlugin() {
+      return {
+        name: 'monaco-plugin',
+        configureWebpack(config, isServer) {
+          if (isServer) {
+            return {
+              resolve: {
+                alias: {
+                  'monaco-editor': false,
+                },
+              },
+            };
+          }
+          return {};
+        },
+      };
+    },
+  ],
 };
 
 export default config;
