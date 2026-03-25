@@ -1,14 +1,10 @@
-yangshun:
-  name: Yangshun Tay
-  title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
-  url: https://linkedin.com/in/yangshun
-  image_url: https://github.com/yangshun.png
+Brian:
+  name: Brian Dorantes
+  title:  IT Engineer,Founder Zyphur
+  image_url: https://github.com/briandorantes1995.png
   page: true
   socials:
-    x: yangshunz
-    linkedin: yangshun
-    github: yangshun
-    newsletter: https://www.greatfrontend.com
+    github: briandorantes1995
 
 slorber:
   name: Sébastien Lorber
